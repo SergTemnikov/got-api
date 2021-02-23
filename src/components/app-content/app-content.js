@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import './app-content.css'
+import CardCharacter from '../card-character'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class AppContent extends Component {
   constructor(props) {
@@ -7,9 +8,7 @@ export default class AppContent extends Component {
   }
   render() {
     return (
-      <div className='content'>
-        <h3>This is Content</h3>
-      </div>
+      <CardCharacter/>
     )
   }
 }

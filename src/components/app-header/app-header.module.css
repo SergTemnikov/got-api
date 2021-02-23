@@ -1,0 +1,9 @@
+.font {
+  font-size: 15px;
+  color: rgb(199, 218, 240);
+}
+
+.title {
+  display: flex;
+  align-content: flex-start;
+}
