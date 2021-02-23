@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AppHeader from '../../components/app-header'
-import './app.css'
+import AppContent from '../app-content'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class App extends Component {
   constructor(props) {
@@ -8,11 +9,9 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='container'>
         <AppHeader/>
-        <p>
-          This is content
-        </p>
+        <AppContent/>
       </div>
     )
   }
