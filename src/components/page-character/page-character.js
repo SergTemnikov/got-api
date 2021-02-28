@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import ItemList from '../item-list'
-import CharDetails, {Field} from '../char-details'
+import ItemDetails, {Field} from '../item-details'
 import ErrorMessage from '../errorMessage'
 import gotService from '../../services/fetch-service'
 import RowBlock from '../row-block'
@@ -15,7 +14,7 @@ export default class PageCharacter extends Component {
     error: false
   }
 
-  onItemSelected = (id) => {
+  onCharSelected = (id) => {
     this.setState({
       selectedItem: id
     })
@@ -33,24 +32,27 @@ export default class PageCharacter extends Component {
       return <ErrorMessage/>
     }
     
-    const itemList = (
+    const charList = (
       <ItemList 
-        onItemSelected={this.onItemSelected}
+        onItemSelected={this.onCharSelected}
         getData={this.gotService.getAllCharacters}
         renderItem={({name, gender}) => `${name} (${gender})`}/>
     )
 
     const charDetails = (
-      <CharDetails charId={this.state.selectedItem}>
-        <Field field='gender' label='Gender'/>
-        <Field field='born' label='Born'/>
-        <Field field='died' label='Died'/>
-        <Field field='culture' label='Culture'/>
-      </CharDetails>
+      <ItemDetails 
+        itemId={this.state.selectedItem}
+        getData={this.gotService.getCharacter}
+        itemLabel='Character'>
+          <Field field='gender' label='Gender'/>
+          <Field field='born' label='Born'/>
+          <Field field='died' label='Died'/>
+          <Field field='culture' label='Culture'/>
+      </ItemDetails>
     )
 
     return (
-      <RowBlock left={itemList} right={charDetails}/>
+      <RowBlock left={charList} right={charDetails}/>
     )
   }
 }

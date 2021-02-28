@@ -5,13 +5,9 @@ import { Button } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ErrorMessage from '../errorMessage'
 import PageCharacter from '../page-character'
-import ItemList from '../item-list'
-import CharDetails from '../char-details'
-import gotService from '../../services/fetch-service'
+import PageHouse from '../page-house'
 
 export default class App extends Component {
-
-  gotService = new gotService()
 
   state = {
     isShow: true,
@@ -51,32 +47,7 @@ export default class App extends Component {
           {content}
           <Button onClick={onToggle} style={{margin: '20px'}} color='primary'>{btnCaption}</Button>
           <PageCharacter/>
-          <div style={{marginBottom: '10px'}} className='container'>
-            <div className='row'>
-              <div className='col'>
-                <ItemList 
-                  onItemSelected={this.onItemSelected}
-                  getData={this.gotService.getAllBooks}
-                  renderItem={({name, publisher}) => `${name} (${publisher})`}/>
-              </div>
-              <div className='col'>
-                <CharDetails charId={this.state.selectedChar}/>
-              </div>
-            </div>
-          </div>
-          <div style={{marginBottom: '10px'}} className='container'>
-            <div className='row'>
-              <div className='col'>
-                <ItemList 
-                  onItemSelected={this.onItemSelected}
-                  getData={this.gotService.getAllHouses}
-                  renderItem={({name, region}) => `${name} (${region})`}/>
-              </div>
-              <div className='col'>
-                <CharDetails charId={this.state.selectedChar}/>
-              </div>
-            </div>
-          </div>
+          <PageHouse/>
         </div>
       </>
     )

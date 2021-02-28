@@ -2,25 +2,25 @@ import React, { Component } from 'react'
 import { Card, CardBody } from 'reactstrap'
 import gotService from '../../services/fetch-service'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from './char-details.module.css'
+import style from './item-details.module.css'
 
-const Field = ({char, field, label}) => {
+const Field = ({item, field, label}) => {
   return (
     <li className={style.listItem}>
       <span>{label}:</span>
-      <span className='text-primary'>{char[field] ? char[field] : 'no info:('}</span>
+      <span className='text-primary'>{item[field] ? item[field] : 'no info:('}</span>
     </li>
   )
 }
 
 export {Field}
 
-export default class CharDetails extends Component {
+export default class ItemDetails extends Component {
 
   gotService = new gotService()
 
   state = {
-    char: null
+    item: null
   }
 
   componentDidMount() {
@@ -28,30 +28,32 @@ export default class CharDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.charId !== prevProps.charId) {
+    if (this.props.itemId !== prevProps.itemId) {
       this.updateChar()
     }
   }
 
   updateChar() {
-    const { charId } = this.props
-    if (!charId) {
+    const { itemId, getData } = this.props
+    if (!itemId) {
       return
     }
-    this.gotService.getCharacter(charId)
-      .then(char => {
-        this.setState({ char })
+    getData(itemId)
+      .then(item => {
+        this.setState({ item })
       })
   }
 
   render() {
 
-    if (!this.state.char) {
-      return <h4 className='text-white'>  Please, select a character</h4>
+    const {itemLabel} = this.props
+
+    if (!this.state.item) {
+      return <h4 className='text-white'>  Please, select a {itemLabel}</h4>
     }
 
-    const { char } = this.state
-    const { name } = char
+    const { item } = this.state
+    const { name } = item
 
     return (
       <div className='row'>
@@ -64,7 +66,7 @@ export default class CharDetails extends Component {
               <ul className={style.list}>
                 {
                   React.Children.map(this.props.children, (child) => {
-                    return React.cloneElement(child, {char})
+                    return React.cloneElement(child, {item})
                   })
                 }
               </ul>

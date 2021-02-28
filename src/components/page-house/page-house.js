@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import ItemList from '../item-list'
-import HouseDetails from '../house-details'
+import ItemDetails, {Field} from '../item-details'
+import ErrorMessage from '../errorMessage'
 import gotService from '../../services/fetch-service'
+import RowBlock from '../row-block'
 
 export default class PageHouse extends Component {
+
+  gotService = new gotService()
 
   state = {
     selectedHouse: null,
     error: false
-  }
-
-  componentDidCatch() {
-    this.setState({
-      error: true
-    })
   }
 
   onHouseSelected = (id) => {
@@ -22,25 +20,43 @@ export default class PageHouse extends Component {
     })
   }
 
+  componentDidCatch() {
+    this.setState({
+      error: true
+    })
+  }
 
-  gotService = new gotService()
+  
 
   render() {
+
+    if (this.state.error) {
+      return <ErrorMessage/>
+    }
+
+    const houseList = (
+      <ItemList 
+        onItemSelected={this.onHouseSelected}
+        getData={this.gotService.getAllHouses}
+        renderItem={({name, region}) => `${name} (${region})`}/>
+    )
+
+    const houseDetails = (
+      <ItemDetails 
+        itemId={this.state.selectedHouse}
+        getData={this.gotService.getHouse}
+        itemLabel='House'>
+          <Field field='name' label='Name'/>
+          <Field field='region' label='Region'/>
+          <Field field='words' label='Words'/>
+          <Field field='titles' label='Titles'/>
+          <Field field='overlord' label='Overlord'/>
+          <Field field='ancestralWeapons' label='Ancestral Weapons'/>
+      </ItemDetails>
+    )
+
     return (
-      <>
-        <div className='container'>
-          <div className='row'>
-            <div className='col'>
-              <ItemList 
-                onHouseSelected={this.onHouseSelected}
-                getData={this.gotService.getAllHouses}/>
-            </div>
-            <div className='col'>
-              <HouseDetails charId={this.state.selectedHouse}/>
-            </div>
-          </div>
-        </div>
-      </>
+      <RowBlock left={houseList} right={houseDetails}/>
     )
   }
 }
