@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import ItemList from '../item-list'
-import ItemDetails, {Field} from '../item-details'
-import ErrorMessage from '../errorMessage'
+import ItemList from '../../components/item-list'
+import ItemDetails, {Field} from '../../components/item-details'
+import ErrorMessage from '../../components/errorMessage'
 import gotService from '../../services/fetch-service'
-import RowBlock from '../row-block'
+import RowBlock from '../../components/row-block'
 
 export default class PageCharacter extends Component {
 

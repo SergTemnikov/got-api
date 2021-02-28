@@ -4,8 +4,9 @@ import CardCharacter from '../card-character'
 import { Button } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ErrorMessage from '../errorMessage'
-import PageCharacter from '../page-character'
-import PageHouse from '../page-house'
+import PageCharacter from '../../pages/page-character'
+import PageHouse from '../../pages/page-house'
+import PageBook from '../../pages/page-book'
 
 export default class App extends Component {
 
@@ -48,6 +49,7 @@ export default class App extends Component {
           <Button onClick={onToggle} style={{margin: '20px'}} color='primary'>{btnCaption}</Button>
           <PageCharacter/>
           <PageHouse/>
+          <PageBook/>
         </div>
       </>
     )
