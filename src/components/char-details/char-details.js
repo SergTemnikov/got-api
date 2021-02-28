@@ -4,6 +4,17 @@ import gotService from '../../services/fetch-service'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import style from './char-details.module.css'
 
+const Field = ({char, field, label}) => {
+  return (
+    <li className={style.listItem}>
+      <span>{label}:</span>
+      <span className='text-primary'>{char[field] ? char[field] : 'no info:('}</span>
+    </li>
+  )
+}
+
+export {Field}
+
 export default class CharDetails extends Component {
 
   gotService = new gotService()
@@ -40,7 +51,7 @@ export default class CharDetails extends Component {
     }
 
     const { char } = this.state
-    const { name, gender, born, died, culture } = char
+    const { name } = char
 
     return (
       <div className='row'>
@@ -51,22 +62,11 @@ export default class CharDetails extends Component {
                 <span className='text-primary font-weight-bold'><i>{name ? name : 'no info:('}</i></span>
               </h4>
               <ul className={style.list}>
-                <li className={style.listItem}>
-                  <span>Gender:</span>
-                  <span className='text-primary'>{gender ? gender : 'no info:('}</span>
-                </li>
-                <li className={style.listItem}>
-                  <span>Born:</span>
-                  <span className='text-primary'>{born ? born : 'no info:('}</span>
-                </li>
-                <li className={style.listItem}>
-                  <span>Died:</span>
-                  <span className='text-primary'>{died ? died : 'no info:('}</span>
-                </li>
-                <li className={style.listItem}>
-                  <span>Culture:</span>
-                  <span className='text-primary'>{culture ? culture : 'no info:('}</span>
-                </li>
+                {
+                  React.Children.map(this.props.children, (child) => {
+                    return React.cloneElement(child, {char})
+                  })
+                }
               </ul>
             </CardBody>
           </Card>
