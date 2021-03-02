@@ -7,6 +7,7 @@ import {
   NavItem
 } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {Link} from 'react-router-dom'
 
 const AppHeader = () => {
 
@@ -14,17 +15,25 @@ const AppHeader = () => {
 
   return (
     <div className='container d-flex justify-content-between mb-3 mt-3'>
-      <NavbarBrand className={titleClass} href="/">Game of Thrones Database</NavbarBrand>
+      <NavbarBrand className={titleClass} href="/">
+        <Link to='/'>Game of Thrones Database</Link>
+      </NavbarBrand>
       <Navbar expand="md">
         <Nav className='d-flex justify-content-end' navbar>
-            <NavItem href="#">
-              <NavLink style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold'>Characters</NavLink>
+            <NavItem>
+              <NavLink>
+                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/characters'>Characters</Link>
+              </NavLink> 
             </NavItem>
-            <NavItem href="#">
-              <NavLink style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold'>Houses</NavLink>
+            <NavItem>
+              <NavLink>
+                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/houses'>Houses</Link>
+              </NavLink>
             </NavItem>
-            <NavItem href="#">
-              <NavLink style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold'>Books</NavLink>
+            <NavItem>
+              <NavLink>
+                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/books'>Books</Link>
+              </NavLink>
             </NavItem>
         </Nav>
       </Navbar>

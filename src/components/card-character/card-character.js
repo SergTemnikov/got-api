@@ -5,25 +5,28 @@ import style from './card-character.module.css'
 import gotService from '../../services/fetch-service'
 import Spinner from '../spinner'
 import ErrorMessage from '../errorMessage'
+import PropTypes from 'prop-types'
 
 export default class CardCharacter extends Component {
   
   gotService = new gotService()
-
-  componentDidMount() {
-    this.updateChar()
-    this.timerId = setInterval(this.updateChar, 2500);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerId)
-  }
 
   state = {
     char: {},
     loading: true,
     error: false
   }
+
+  componentDidMount() {
+    this.updateChar()
+    this.timerId = setInterval(this.updateChar, this.props.interval);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId)
+  }
+
+  
 
   onCharLoaded = char => {
     this.setState({
@@ -69,6 +72,14 @@ export default class CardCharacter extends Component {
       </div>
     )
   }
+}
+
+CardCharacter.defaultProps = {
+  interval: 10000
+}
+
+CardCharacter.propTypes = {
+  interval: PropTypes.number
 }
 
 const View = ({char}) => {

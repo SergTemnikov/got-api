@@ -4,9 +4,8 @@ import CardCharacter from '../card-character'
 import { Button } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ErrorMessage from '../errorMessage'
-import PageCharacter from '../../pages/page-character'
-import PageHouse from '../../pages/page-house'
-import PageBook from '../../pages/page-book'
+import {PageCharacter, PageHouse, PageBook} from '../../pages'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 export default class App extends Component {
 
@@ -42,16 +41,19 @@ export default class App extends Component {
     const btnCaption = isShow ? `Hide character's card` : `Show character's card`
 
     return (
-      <>
-        <div className='container'>
-          <AppHeader/>
-          {content}
-          <Button onClick={onToggle} style={{margin: '20px'}} color='primary'>{btnCaption}</Button>
-          <PageCharacter/>
-          <PageHouse/>
-          <PageBook/>
+      <Router>
+        <div className='app'>
+          <div className='container'>
+            <AppHeader/>
+            {content}
+            <Button onClick={onToggle} style={{margin: '20px'}} color='primary'>{btnCaption}</Button>
+            {/* <Route path='/' component={() => <h1>Welcomt ot GoT DB</h1>}></Route> */}
+            <Route path='/characters' component={PageCharacter}/>
+            <Route path='/houses' component={PageHouse}/>
+            <Route path='/books' component={PageBook}/>
+          </div>
         </div>
-      </>
+      </Router>
     )
   }
 }

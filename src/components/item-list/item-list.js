@@ -2,20 +2,10 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Spinner from '../spinner'
 import { Card, CardBody, ListGroup, ListGroupItem } from 'reactstrap'
+import PropTypes from 'prop-types'
+import gotService from '../../services/fetch-service'
 
-export default class ItemList extends Component {
-
-  state = {
-    itemList: null
-  }
-
-  componentDidMount() {
-    const {getData} = this.props
-    getData()
-     .then(itemList => {
-      this.setState({itemList})
-     })
-  }
+class ItemList extends Component {
 
   renderItems(arr) {
     return arr.map((item) => {
@@ -34,13 +24,9 @@ export default class ItemList extends Component {
 
   render() {
 
-    const {itemList} = this.state
+    const {data} = this.props
 
-    if (!itemList) {
-      return <Spinner/>
-    }
-
-    const items = this.renderItems(itemList)
+    const items = this.renderItems(data)
     return (
       <div className='row'>
         <div className='col'>
@@ -56,3 +42,38 @@ export default class ItemList extends Component {
     ) 
   }
 }
+
+ItemList.defaulProps = {
+  onItemSelected: () => {}
+}
+
+ItemList.propTypes = {
+  onItemSelected: PropTypes.func
+}
+
+const withData = (View, getData) => {
+  return class extends Component {
+    state = {
+      data: null
+    }
+  
+    componentDidMount() {
+      getData()
+       .then(data => {
+        this.setState({data})
+       })
+    }
+
+    render() {
+        const {data} = this.state
+
+        if (!data) {
+          return <Spinner/>
+        }
+          return <View {...this.props} data={data}/>
+        }
+  }
+}
+
+const {getAllCharacters} = new gotService()
+export default withData(ItemList, getAllCharacters)
