@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Spinner from '../spinner'
 import { Card, CardBody, ListGroup, ListGroupItem } from 'reactstrap'
-import PropTypes from 'prop-types'
 
-const Itemlist = (props) => {
+export default class ItemList extends Component {
 
-  function renderItems(arr) {
+  state = {
+    itemList: null
+  }
+
+  componentDidMount() {
+    const {getData} = this.props
+    getData()
+     .then(itemList => {
+      this.setState({itemList})
+     })
+  }
+
+  renderItems(arr) {
     return arr.map((item) => {
       const label = this.props.renderItem(item)
       const {id} = item
@@ -20,29 +32,27 @@ const Itemlist = (props) => {
     })
   }
 
-  const {data} = this.props
-  const items = renderItems(data)
-  return (
-    <div className='row'>
-      <div className='col'>
-        <Card style={{borderColor: '#333'}}>
-          <CardBody>
-            <ListGroup>
-              {items}
-            </ListGroup>
-          </CardBody>
-        </Card>
+  render() {
+
+    const {itemList} = this.state
+
+    if (!itemList) {
+      return <Spinner/>
+    }
+
+    const items = this.renderItems(itemList)
+    return (
+      <div className='row'>
+        <div className='col'>
+          <Card style={{borderColor: '#333'}}>
+            <CardBody>
+              <ListGroup>
+                {items}
+              </ListGroup>
+            </CardBody>
+          </Card>
+        </div>
       </div>
-    </div>
-  ) 
+    ) 
+  }
 }
-
-ItemList.defaulProps = {
-  onItemSelected: () => {}
-}
-
-ItemList.propTypes = {
-  onItemSelected: PropTypes.func
-}
-
-export default ItemList
