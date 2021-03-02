@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Spinner from '../spinner'
 import { Card, CardBody, ListGroup, ListGroupItem } from 'reactstrap'
 import PropTypes from 'prop-types'
-import gotService from '../../services/fetch-service'
 
-class ItemList extends Component {
+const Itemlist = (props) => {
 
-  renderItems(arr) {
+  function renderItems(arr) {
     return arr.map((item) => {
       const label = this.props.renderItem(item)
       const {id} = item
@@ -22,25 +20,21 @@ class ItemList extends Component {
     })
   }
 
-  render() {
-
-    const {data} = this.props
-
-    const items = this.renderItems(data)
-    return (
-      <div className='row'>
-        <div className='col'>
-          <Card style={{borderColor: '#333'}}>
-            <CardBody>
-              <ListGroup>
-                {items}
-              </ListGroup>
-            </CardBody>
-          </Card>
-        </div>
+  const {data} = this.props
+  const items = renderItems(data)
+  return (
+    <div className='row'>
+      <div className='col'>
+        <Card style={{borderColor: '#333'}}>
+          <CardBody>
+            <ListGroup>
+              {items}
+            </ListGroup>
+          </CardBody>
+        </Card>
       </div>
-    ) 
-  }
+    </div>
+  ) 
 }
 
 ItemList.defaulProps = {
@@ -51,29 +45,4 @@ ItemList.propTypes = {
   onItemSelected: PropTypes.func
 }
 
-const withData = (View, getData) => {
-  return class extends Component {
-    state = {
-      data: null
-    }
-  
-    componentDidMount() {
-      getData()
-       .then(data => {
-        this.setState({data})
-       })
-    }
-
-    render() {
-        const {data} = this.state
-
-        if (!data) {
-          return <Spinner/>
-        }
-          return <View {...this.props} data={data}/>
-        }
-  }
-}
-
-const {getAllCharacters} = new gotService()
-export default withData(ItemList, getAllCharacters)
+export default ItemList
