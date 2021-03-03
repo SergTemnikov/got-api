@@ -22,17 +22,17 @@ const AppHeader = () => {
         <Nav className='d-flex justify-content-end' navbar>
             <NavItem>
               <NavLink>
-                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/characters'>Characters</Link>
+                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/characters/'>Characters</Link>
               </NavLink> 
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/houses'>Houses</Link>
+                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/houses/'>Houses</Link>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/books'>Books</Link>
+                <Link style={{cursor: 'pointer', paddingRight: '30px'}} className='text-light font-weight-bold' to='/books/'>Books</Link>
               </NavLink>
             </NavItem>
         </Nav>
