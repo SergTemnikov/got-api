@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import gotService from '../../services/fetch-service'
-import ItemDetails, {Field} from '../../components/item-details'
+import gotService from '../../../services/fetch-service'
+import ItemDetails, {Field} from '../../../components/item-details'
 
 export default class PageBookItem extends Component {
   gotService = new gotService()
