@@ -4,7 +4,7 @@ import CardCharacter from '../card-character'
 import { Button } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ErrorMessage from '../errorMessage'
-import {PageCharacter, PageHouse, PageBook, PageBookItem, PageHouseItem} from '../../pages'
+import {PageCharacter, PageHouse, PageBook, PageBookItem, PageHouseItem, PageCharItem} from '../../pages'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 export default class App extends Component {
@@ -48,7 +48,14 @@ export default class App extends Component {
             {content}
             <Button onClick={onToggle} style={{margin: '20px'}} color='primary'>{btnCaption}</Button>
             <Route path='/' exact component={() => <h1>Welcomt ot GoT DB</h1>}></Route>
-            <Route path='/characters' component={PageCharacter}/>
+            <Route path='/characters' exact component={PageCharacter}/>
+            <Route path='/characters/:id' render={
+              ({match}) => {
+                const {id} = match.params
+                return <PageCharItem charId={id}/>
+              }
+            }/>
+
             <Route path='/houses' exact component={PageHouse}/>
 
             <Route path='/houses/:id' render={
