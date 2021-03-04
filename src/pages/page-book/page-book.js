@@ -30,7 +30,8 @@ class PageBook extends Component {
           this.props.history.push(itemId)
         }}
         getData={this.gotService.getAllBooks}
-        renderItem={({ name, publisher }) => `${name} (${publisher})`} />
+        renderItem={({ name, publisher }) => `${name} (${publisher})`}
+        itemLabel='Book' />
     )
   }
 }

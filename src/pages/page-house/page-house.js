@@ -30,7 +30,8 @@ class PageHouse extends Component {
           this.props.history.push(itemId)
         }}
         getData={this.gotService.getAllHouses}
-        renderItem={({name, region}) => `${name} (${region})`}/>
+        renderItem={({name, region}) => `${name} (${region})`}
+        itemLabel='House'/>
     )
   }
 }

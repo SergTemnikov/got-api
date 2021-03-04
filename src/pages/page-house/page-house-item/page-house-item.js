@@ -10,8 +10,7 @@ export default class PageHouseItem extends Component {
     return (
       <ItemDetails 
         itemId={this.props.houseId}
-        getData={this.gotService.getHouse}
-        itemLabel='House'>
+        getData={this.gotService.getHouse}>
           <Field field='name' label='Name'/>
           <Field field='region' label='Region'/>
           <Field field='words' label='Words'/>

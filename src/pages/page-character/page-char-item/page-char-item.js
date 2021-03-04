@@ -10,8 +10,7 @@ export default class PageCharItem extends Component {
     return (
       <ItemDetails 
         itemId={this.props.charId}
-        getData={this.gotService.getCharacter}
-        itemLabel='Character'>
+        getData={this.gotService.getCharacter}>
           <Field field='gender' label='Gender'/>
           <Field field='born' label='Born'/>
           <Field field='died' label='Died'/>

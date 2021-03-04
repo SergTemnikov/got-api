@@ -35,6 +35,7 @@ export default class ItemList extends Component {
   render() {
 
     const {itemList} = this.state
+    const {itemLabel} = this.props
 
     if (!itemList) {
       return <Spinner/>
@@ -46,6 +47,7 @@ export default class ItemList extends Component {
         <div className='col'>
           <Card style={{borderColor: '#333'}}>
             <CardBody>
+              <h4 className='row justify-content-md-center'>  Please, select a {itemLabel}</h4>
               <ListGroup>
                 {items}
               </ListGroup>
